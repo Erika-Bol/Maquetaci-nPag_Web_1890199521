@@ -212,5 +212,26 @@
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.css"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
+   
+    <!--<script>
+         obtenerDatos();
+        async function obtenerDatos() {
+  try {
+    const respuesta = await fetch('https://backservicetest-g8emcvdff0fqe2b8.canadacentral-01.azurewebsites.net/api/producto');
+    
+    // Revisar si la respuesta es correcta
+    if (!respuesta.ok) {
+      throw new Error('No se pudo encontrar el recurso');
+    }
+    
+    const datos = await respuesta.json();
+    console.log(datos);
+  } catch (error) {
+    console.log('Hubo un error:', error);
+  }
+}
+    </script>-->
 </body>
 </html>
