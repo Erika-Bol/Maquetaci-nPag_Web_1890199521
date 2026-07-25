@@ -1,0 +1,98 @@
+/* Tipografía Global */
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #f4f5f7;
+    color: #333;
+}
+
+/* Navbar Premium */
+.navbar {
+    background-color: #121212 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+}
+
+/* Carrusel Premium */
+.carousel-item {
+    height: 500px;
+}
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+}
+.carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+}
+.carousel-caption h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Tarjetas de Producto */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    background: #ffffff;
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+.card-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+/* Botones y Menú */
+.btn-premium {
+    background-color: #121212;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+.btn-premium:hover {
+    background-color: #333;
+    color: #fff;
+}
+.list-group-item {
+    border: none;
+    padding: 1rem 1.25rem;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.2s;
+}
+.list-group-item:hover, .list-group-item.active {
+    background-color: #121212;
+    color: #fff;
+    border-radius: 8px !important;
+    margin-bottom: 2px;
+}
+
+/* Footer */
+footer {
+    background-color: #121212 !important;
+}
