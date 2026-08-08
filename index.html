@@ -87,21 +87,35 @@
             <!-- Columna Izquierda: Menú de Categorías (col-sm-3) -->
             <div class="col-sm-3 mb-4">
                 <h5 class="fw-bold mb-3 px-3">Explorar</h5>
-                <div class="list-group shadow-sm bg-white rounded-4 p-2">
-                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                <div class="list-group shadow-sm bg-white rounded-4 p-2" id="contenedor-categorias">
+                    <button class="list-group-item list-group-item-action active text-start" onclick="filtrarCategoria(null, this)">
                         <i class="bi bi-grid-fill me-2"></i> Todo
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-laptop me-2"></i> Tecnología</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-bag-heart me-2"></i> Moda</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-house-door me-2"></i> Hogar</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="bi bi-dribbble me-2"></i> Deportes</a>
+                    </button>
+                    <!-- Las categorías se cargarán dinámicamente aquí -->
                 </div>
             </div>
 
             <!-- Columna Derecha: Productos (col-sm-9) -->
             <div class="col-sm-9">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="fw-bold mb-0">Destacados</h3>
+                    <h3 class="fw-bold mb-0">Catálogo</h3>
+                    <div class="d-flex gap-3 align-items-center">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="filtroOfertas">
+                            <label class="form-check-label" for="filtroOfertas">Solo Ofertas</label>
+                        </div>
+                        <button class="btn btn-primary shadow-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#modalProducto" onclick="abrirModalCrear()">
+                            <i class="bi bi-plus-lg me-1"></i> Añadir Producto
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Búsqueda -->
+                <div class="mb-4">
+                    <div class="input-group shadow-sm rounded-pill overflow-hidden">
+                        <span class="input-group-text bg-white border-0 ps-4"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" id="inputBusqueda" class="form-control border-0 py-3 shadow-none" placeholder="Buscar productos por nombre...">
+                    </div>
                 </div>
 
                 <!-- Grid de productos -->
@@ -118,6 +132,92 @@
             <p class="mb-0 fw-light text-white-50">Diseñado por: <span class="text-white fw-medium">E.Argentina Bol - 1890199521</span></p>
         </div>
     </footer>
+
+    <!-- Modal Formulario Producto -->
+    <div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 rounded-4 shadow">
+                <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title fw-bold" id="modalProductoLabel">Registrar Nuevo Producto</h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pb-4 px-4">
+                    <form id="formProducto">
+                        <input type="hidden" id="productoId" value="0">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label text-muted small fw-bold">Nombre del Producto</label>
+                            <input type="text" class="form-control form-control-lg bg-light border-0 shadow-none" id="nombre" required placeholder="Ej. Mouse Gamer RGB">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label text-muted small fw-bold">Descripción</label>
+                            <textarea class="form-control bg-light border-0 shadow-none" id="descripcion" rows="3" required placeholder="Detalles del producto..."></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="precio" class="form-label text-muted small fw-bold">Precio Regular (Q)</label>
+                                <input type="number" step="0.01" class="form-control bg-light border-0 shadow-none" id="precio" required placeholder="0.00">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="categoriaId" class="form-label text-muted small fw-bold">Categoría</label>
+                                <select class="form-select bg-light border-0 shadow-none" id="categoriaSelect" required>
+                                    <option value="">Seleccione una...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="enOferta">
+                            <label class="form-check-label" for="enOferta">¿Está en Oferta?</label>
+                        </div>
+                        <div class="mb-3 d-none" id="contenedorPrecioOferta">
+                            <label for="precioOferta" class="form-label text-muted small fw-bold">Precio de Oferta (Q)</label>
+                            <input type="number" step="0.01" class="form-control bg-light border-0 shadow-none" id="precioOferta" placeholder="0.00">
+                        </div>
+                        <div class="mb-4">
+                            <label for="imagen" class="form-label text-muted small fw-bold">URL de la Imagen</label>
+                            <input type="url" class="form-control bg-light border-0 shadow-none" id="imagen" required placeholder="https://ejemplo.com/imagen.jpg">
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm" id="btnGuardar">Guardar Producto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Detalle Producto -->
+    <div class="modal fade" id="modalDetalle" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 rounded-4 shadow overflow-hidden" id="detalleContenido">
+                <!-- Se inyecta dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Eliminar Confirmación -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 rounded-4 shadow text-center p-4">
+                <i class="bi bi-exclamation-circle text-danger mb-3" style="font-size: 3rem;"></i>
+                <h5 class="fw-bold mb-3">¿Eliminar Producto?</h5>
+                <p class="text-muted mb-4 small">Esta acción no se puede deshacer.</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger rounded-pill px-4" id="btnConfirmarEliminar">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor Toast para notificaciones -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="appToast" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMensaje"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
